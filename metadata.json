@@ -1,0 +1,5 @@
+{
+  "name": "Alerta360",
+  "description": "Una aplicación web para que los ciudadanos de Santa Cruz, Bolivia, reporten y visualicen incidentes en tiempo real sobre un mapa interactivo para mejorar la planificación de sus rutas y su seguridad.",
+  "requestFramePermissions": []
+}
