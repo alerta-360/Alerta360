@@ -78,39 +78,37 @@ const App: React.FC = () => {
     };
 
     return (
-        <div className="h-screen w-screen flex flex-col bg-gray-100">
+        <div className="h-screen w-screen relative bg-gray-100">
+            <MapComponent 
+                center={mapCenter} 
+                userLocation={userLocation}
+                incidents={incidents}
+                onMapClick={handleMapClick}
+                isReporting={isReporting}
+                reportLocation={reportLocation}
+            />
             <Header />
-            <div className="relative flex-grow">
-                <MapComponent 
-                    center={mapCenter} 
-                    userLocation={userLocation}
-                    incidents={incidents}
-                    onMapClick={handleMapClick}
-                    isReporting={isReporting}
-                    reportLocation={reportLocation}
-                />
-                <div className="absolute top-4 right-4 z-[500] flex flex-col items-end gap-4">
-                    <button
-                        onClick={startReporting}
-                        className="bg-yellow-400 text-blue-900 font-bold py-3 px-6 rounded-full shadow-lg hover:bg-yellow-500 transition-colors text-lg focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50"
-                    >
-                        Reportar Incidente
-                    </button>
-                    {isReporting && <Instructions onClose={cancelReporting} />}
-                </div>
-                 {reportLocation && isReporting && (
-                    <ReportModal
-                        onSubmit={submitReport}
-                        onClose={cancelReporting}
-                    />
-                )}
-                {notification && (
-                    <Notification 
-                        message={notification} 
-                        onClose={() => setNotification(null)} 
-                    />
-                )}
+            <div className="absolute top-24 right-4 z-[500] flex flex-col items-end gap-4">
+                <button
+                    onClick={startReporting}
+                    className="bg-yellow-400 text-blue-900 font-bold py-3 px-6 rounded-full shadow-lg hover:bg-yellow-500 transition-colors text-lg focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50"
+                >
+                    Reportar Incidente
+                </button>
+                {isReporting && <Instructions onClose={cancelReporting} />}
             </div>
+             {reportLocation && isReporting && (
+                <ReportModal
+                    onSubmit={submitReport}
+                    onClose={cancelReporting}
+                />
+            )}
+            {notification && (
+                <Notification 
+                    message={notification} 
+                    onClose={() => setNotification(null)} 
+                />
+            )}
         </div>
     );
 };
