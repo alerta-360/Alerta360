@@ -30,7 +30,7 @@ const App: React.FC = () => {
                 setMapCenter(coords);
             },
             (error) => {
-                console.error("Error getting user location:", error);
+                console.error("Error getting user location:", error.message);
                 // Keep map centered on Santa Cruz if location is denied
             }
         );
