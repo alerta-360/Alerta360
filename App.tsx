@@ -78,7 +78,7 @@ const App: React.FC = () => {
     };
 
     return (
-        <div className="h-screen w-screen relative bg-gray-100">
+        <div className="h-screen w-screen relative">
             <MapComponent 
                 center={mapCenter} 
                 userLocation={userLocation}
