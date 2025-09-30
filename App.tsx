@@ -5,7 +5,6 @@ import { Header } from './components/Header';
 import { MapComponent } from './components/MapComponent';
 import { ReportModal } from './components/ReportModal';
 import { Notification } from './components/Notification';
-import { Instructions } from './components/Instructions';
 import type { Incident, IncidentType, Coordinates } from './types';
 import { getDistanceInKm } from './utils/geolocation';
 
@@ -15,7 +14,6 @@ const App: React.FC = () => {
     const [incidents, setIncidents] = useState<Incident[]>([]);
     const [userLocation, setUserLocation] = useState<Coordinates | null>(null);
     const [mapCenter, setMapCenter] = useState<Coordinates>(SANTA_CRUZ_COORDS);
-    const [isReporting, setIsReporting] = useState(false);
     const [reportLocation, setReportLocation] = useState<Coordinates | null>(null);
     const [notification, setNotification] = useState<string | null>(null);
 
@@ -47,14 +45,8 @@ const App: React.FC = () => {
         }
     }, [userLocation]);
 
-    const startReporting = () => {
-        setIsReporting(true);
-    };
-
     const handleMapClick = (latlng: LatLng) => {
-        if (isReporting) {
-            setReportLocation({ lat: latlng.lat, lng: latlng.lng });
-        }
+        setReportLocation({ lat: latlng.lat, lng: latlng.lng });
     };
 
     const submitReport = (type: IncidentType, description: string) => {
@@ -73,7 +65,6 @@ const App: React.FC = () => {
     };
     
     const cancelReporting = () => {
-        setIsReporting(false);
         setReportLocation(null);
     };
 
@@ -84,20 +75,11 @@ const App: React.FC = () => {
                 userLocation={userLocation}
                 incidents={incidents}
                 onMapClick={handleMapClick}
-                isReporting={isReporting}
                 reportLocation={reportLocation}
             />
             <Header />
-            <div className="absolute top-24 right-4 z-[500] flex flex-col items-end gap-4">
-                <button
-                    onClick={startReporting}
-                    className="bg-yellow-400 text-blue-900 font-bold py-3 px-6 rounded-full shadow-lg hover:bg-yellow-500 transition-colors text-lg focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50"
-                >
-                    Reportar Incidente
-                </button>
-                {isReporting && <Instructions onClose={cancelReporting} />}
-            </div>
-             {reportLocation && isReporting && (
+            
+             {reportLocation && (
                 <ReportModal
                     onSubmit={submitReport}
                     onClose={cancelReporting}

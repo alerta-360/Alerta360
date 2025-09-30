@@ -65,13 +65,12 @@ interface MapComponentProps {
     userLocation: Coordinates | null;
     incidents: Incident[];
     onMapClick: (latlng: LatLng) => void;
-    isReporting: boolean;
     reportLocation: Coordinates | null;
 }
 
-export const MapComponent: React.FC<MapComponentProps> = ({ center, userLocation, incidents, onMapClick, isReporting, reportLocation }) => {
+export const MapComponent: React.FC<MapComponentProps> = ({ center, userLocation, incidents, onMapClick, reportLocation }) => {
     return (
-        <MapContainer center={[center.lat, center.lng]} zoom={13} scrollWheelZoom={true} className={isReporting ? 'cursor-crosshair' : ''}>
+        <MapContainer center={[center.lat, center.lng]} zoom={13} scrollWheelZoom={true}>
             <ChangeView center={center} />
             <MapEvents onMapClick={onMapClick} />
             <TileLayer
